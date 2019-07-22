@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#8709B4</color>
+    <color name="colorPrimaryDark">#383633</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="black_overlay_Dark">#A1000000</color>
+    <color name="ColorTest">#66E23636</color>
+    <color name="Transparent">#00FFFFFF</color>
+    <color name="DarkGray">#363434</color>
+    <color name="LighterGray">#4B4848</color>
+    <color name="transparent_lightblue">#B696CAFF</color>
+    <color name="EvenLighterGray">#B66C6E72</color>
+    <color name="Text1">#FFFFFF</color>
+    <color name="Text2">#FF9800</color>
+    <color name="DialogBackground">#A661CF</color>
+    <color name="Light_purple">#B2E1B1FA</color>
+
+
+    <array name="dot_colors">
+        <item>#FFFFFF</item>
+        <item>#FFFFFF</item>
+        <item>#FFFFFF</item>
+    </array>
+</resources>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradientpurpletopbottom"
+    tools:context=".Activity_Client">
+
+    <Button
+        android:id="@+id/btnCheckOut"
+        android:layout_width="1270dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="7dp"
+        android:background="@color/LighterGray"
+        android:fontFamily="@font/amaranth"
+        android:gravity="center"
+        android:onClick="CheckOut"
+        android:text="Check Out: $0"
+        android:textAllCaps="false"
+        android:textColor="@android:color/background_light"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewPager" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/menu_tablayout"
+        android:layout_width="902dp"
+        android:layout_height="94dp"
+        android:layout_marginStart="8dp"
+
+        android:layout_marginTop="3dp"
+        android:background="@color/black_overlay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorColor="@android:color/holo_orange_light"
+        app:tabIndicatorHeight="5dp">
+
+        <android.support.design.widget.TabItem
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:icon="@drawable/bread_icon" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:icon="@drawable/drink_icon" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:icon="@drawable/seasame_icon" />
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="902dp"
+        android:layout_height="593dp"
+        android:layout_marginStart="8dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_tablayout" />
+
+    <ListView
+        android:id="@+id/listvieworder"
+        style="@style/Base.Widget.AppCompat.ListView"
+        android:layout_width="351dp"
+        android:layout_height="593dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="16dp"
+
+        android:background="@color/black_overlay"
+        app:layout_constraintBottom_toTopOf="@+id/btnCheckOut"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/viewPager"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="351dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="12dp"
+        android:background="@color/black_overlay"
+        android:fontFamily="@font/amaranth"
+        android:gravity="center"
+        android:text="Your Order:"
+        android:textColor="@android:color/background_light"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/menu_tablayout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="351dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginEnd="8dp"
+        android:text="*Tap an item to edit it"
+        android:gravity="center"
+        android:background="@color/black_overlay"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/listvieworder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/menu_tablayout"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+</android.support.constraint.ConstraintLayout>

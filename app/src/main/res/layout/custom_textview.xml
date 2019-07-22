@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv"
+    android:textColor="@android:color/background_light"
+    android:layout_width="fill_parent"
+    android:textStyle="bold"
+    android:textSize="25dp"
+    android:fontFamily="@font/amaranth"
+    android:gravity="center"
+    android:minHeight="50dp"
+    android:height="50dp"
+    android:background="@drawable/btn_rounded"
+    android:layout_height="fill_parent"/>

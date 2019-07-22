@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <dimen name="lstOrderView_Width">300dp</dimen>
+    <dimen name="lstOrderView_Height">-1px</dimen>
+    <dimen name="FAB1">75dp</dimen>
+    <dimen name="FAB2">145dp</dimen>
+    <dimen name="FAB3">215dp</dimen>
+    <dimen name="FABnoShadow">0dp</dimen>
+    <dimen name="FABregularShadow">6dp</dimen>
+</resources>
