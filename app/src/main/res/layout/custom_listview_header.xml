@@ -7,13 +7,13 @@
     <TextView
         android:id="@+id/textview1"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="90dp"
         android:background="@color/black_overlay"
         android:fontFamily="@font/amaranth"
         android:text="Order Number: 0 \n Time: 00:00"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="20dp"
+        android:textSize="30dp"
 
         android:textStyle="bold" />
 

@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <dimen name="lstOrderView_Width">300dp</dimen>
-    <dimen name="lstOrderView_Height">-1px</dimen>
+    <dimen name="lstOrderView_Width">500dp</dimen>
+    <dimen name="lstOrderView_Height">-1dp</dimen>
     <dimen name="FAB1">75dp</dimen>
     <dimen name="FAB2">145dp</dimen>
     <dimen name="FAB3">215dp</dimen>
+    <dimen name="FAB4">285dp</dimen>
     <dimen name="FABnoShadow">0dp</dimen>
     <dimen name="FABregularShadow">6dp</dimen>
+
+    <dimen name="itemImageSandwich_Height">176dp</dimen>
+    <dimen name="itemImageSandwich_Width">314dp</dimen>
+
+    <dimen name="itemImageDrink_Height">176dp</dimen>
+    <dimen name="itemImageDrink_Width">290dp</dimen>
+
+    <dimen name="itemImageDessert_Height">146dp</dimen>
+    <dimen name="itemImageDessert_Width">290dp</dimen>
+
+    //Wrap_Content
+    <dimen name="textView_Height">-2dp</dimen>
+    //Match_Parent
+    <dimen name="textView_Width">-1dp</dimen>
+    <dimen name="textView_TextSize">20dp</dimen>
+
+    <dimen name="FAB_Height">-2dp</dimen>
+    <dimen name="FAB_Width">-2dp</dimen>
+
+    <dimen name="LinearLayout_Height">-1dp</dimen>
+    <dimen name="LinearLayout_Width">-1dp</dimen>
+
+    <dimen name="Space_Height">1dp</dimen>
+    <dimen name="Space_Width">30dp</dimen>
+
 </resources>

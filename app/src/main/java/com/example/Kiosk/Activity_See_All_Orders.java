@@ -1,8 +1,8 @@
 package com.example.Kiosk;
 
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +25,7 @@ import java.util.Map;
 public class Activity_See_All_Orders extends AppCompatActivity {
 
 
-    OrderRoomDatabase OrderDatabase;
+    OrderRoomDatabase MenuDatabase;
     LinearLayout linearLayout;
 
     @Override
@@ -35,12 +35,12 @@ public class Activity_See_All_Orders extends AppCompatActivity {
 
         linearLayout = findViewById(R.id.linearLayout2);
 
-        OrderDatabase = Room.databaseBuilder(this, OrderRoomDatabase.class, "OrderDatabase").allowMainThreadQueries().build();
+        MenuDatabase = Room.databaseBuilder(this, OrderRoomDatabase.class, "MenuDatabase").allowMainThreadQueries().build();
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) getResources().getDimension(R.dimen.lstOrderView_Width), (int) getResources().getDimension(R.dimen.lstOrderView_Height));
         params.setMargins(12,8,12,8);
 
-        for (int i = OrderDatabase.getOrdersDAO().getRowCount(); i != 0; i--)
+        for (int i = MenuDatabase.getOrdersDAO().getRowCount(); i != 0; i--)
         {
             ArrayList<Item> arrayList = getArrayListItem(i);
 
@@ -62,7 +62,7 @@ public class Activity_See_All_Orders extends AppCompatActivity {
 
     public ArrayList<Item> getArrayListItem(Integer ID)
     {
-        String strItems = OrderDatabase.getOrdersDAO().getItems(ID);
+        String strItems = MenuDatabase.getOrdersDAO().getItems(ID);
         Type listType = new TypeToken<ArrayList<Item>>() {}.getType();
         ArrayList<Item> arrayList = new Gson().fromJson(strItems, listType);
         return arrayList;
@@ -129,7 +129,7 @@ public class Activity_See_All_Orders extends AppCompatActivity {
 
         TextView textView = lstHeaderView.findViewById(R.id.textview1);
         try {
-            time = OrderDatabase.getOrdersDAO().getOrderTime(orderNumber);
+            time = MenuDatabase.getOrdersDAO().getOrderTime(orderNumber);
         }catch (Exception e)
         {
             time = "No time recorded";

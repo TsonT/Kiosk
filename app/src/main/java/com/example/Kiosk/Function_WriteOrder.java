@@ -23,10 +23,11 @@ public class Function_WriteOrder {
 
             if (item.getItemType().equals("Sandwich")) {
                 String sandwichName = item.getItemName();
-                String sandwichToppings = item.getToppingsAsString();
+                String sandwichToppings = item.getAntiToppingsAsString();
                 Integer numberSandwiches = item.getNumberItems();
+                String comment = item.getComment();
 
-                nameAddresses.put(i + 1 + ". " + sandwichName + " x" + numberSandwiches, sandwichToppings);
+                nameAddresses.put(i + 1 + ". " + sandwichName + " x" + numberSandwiches, sandwichToppings + "\n" + comment);
             }
 
             if (item.getItemType().equals("Drink"))
@@ -34,16 +35,18 @@ public class Function_WriteOrder {
                 String drinkName = item.getItemName();
                 String smoothieFlavor = item.getSmoothieFlavor();
                 Integer numberDrinks = item.getNumberItems();
+                String comment = item.getComment();
 
-                nameAddresses.put(i + 1 + ". " + drinkName + " x" + numberDrinks, smoothieFlavor);
+                nameAddresses.put(i + 1 + ". " + drinkName + " x" + numberDrinks, smoothieFlavor+ "\n" + comment);
             }
 
             if (item.getItemType().equals("Dessert"))
             {
                 String dessertName = item.getItemName();
                 Integer numberDesserts = item.getNumberItems();
+                String comment = item.getComment();
 
-                nameAddresses.put(i + 1 + ". " + dessertName + " x" + numberDesserts, "");
+                nameAddresses.put(i + 1 + ". " + dessertName + " x" + numberDesserts, "" + "\n" + comment);
             }
         }
 

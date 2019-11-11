@@ -27,4 +27,10 @@
     <string name="spreads">Spreads</string>
     <string name="vegetables">Vegetables</string>
     <string name="NumberSandwiches">Number of Sandwiches</string>
+
+    <string-array name="ItemTypes_Array">
+        <item>Sandwich</item>
+        <item>Drink</item>
+        <item>Dessert</item>
+    </string-array>
 </resources>

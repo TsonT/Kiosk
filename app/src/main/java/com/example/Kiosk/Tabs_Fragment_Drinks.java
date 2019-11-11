@@ -1,14 +1,15 @@
 package com.example.Kiosk;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +23,8 @@ public class Tabs_Fragment_Drinks extends Fragment {
     ListView lstOrder;
     Button btnCheckOut;
 
+    LinearLayout mainLinearLayout;
+
     Order order;
     @Nullable
     @Override
@@ -33,6 +36,10 @@ public class Tabs_Fragment_Drinks extends Fragment {
         lstOrder = getActivity().findViewById(R.id.listvieworder);
         btnCheckOut = getActivity().findViewById(R.id.btnCheckOut);
         txtInfo = view.findViewById(R.id.txtInfo);
+
+        mainLinearLayout = view.findViewById(R.id.mainLinearLayout);
+
+        Function_Create_Item.Create(getActivity(), "Drink", mainLinearLayout, lstOrder, txtInfo, btnCheckOut);
 
         txtCoffee = view.findViewById(R.id.txtCoffee);
         txtCoffee.setText("Coffee: $" + Prices_Drinks.Coffee);

@@ -1,13 +1,15 @@
 package com.example.Kiosk;
 
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.HorizontalScrollView;
@@ -39,7 +41,7 @@ public class Activity_Server extends AppCompatActivity {
 
     SendReceive sendReceive = new SendReceive(socket);
 
-    OrderRoomDatabase OrderDatabase;
+    OrderRoomDatabase MenuDatabase;
 
     Gson gson;
 
@@ -66,7 +68,7 @@ public class Activity_Server extends AppCompatActivity {
 
         gson = new Gson();
 
-        OrderDatabase = Room.databaseBuilder(this, OrderRoomDatabase.class, "OrderDatabase").allowMainThreadQueries().build();
+        MenuDatabase = Room.databaseBuilder(this, OrderRoomDatabase.class, "MenuDatabase").allowMainThreadQueries().build();
 
         sendReceive.start();
 
@@ -85,7 +87,7 @@ public class Activity_Server extends AppCompatActivity {
                     Type typeOrder = new TypeToken<Order>() {}.getType();
                     order = gson.fromJson(jsonOrder, typeOrder);
 
-                    Long longOrderNumber = OrderDatabase.getOrdersDAO().insert(order);
+                    Long longOrderNumber = MenuDatabase.getOrdersDAO().insert(order);
 
                     order.setId(longOrderNumber.intValue());
 
@@ -176,10 +178,11 @@ public class Activity_Server extends AppCompatActivity {
 
             if (item.getItemType().equals("Sandwich")) {
                 String sandwichName = item.getItemName();
-                String sandwichToppings = item.getToppingsAsString();
+                String sandwichToppings = item.getAntiToppingsAsString();
                 Integer numberSandwiches = item.getNumberItems();
+                String comment = item.getComment();
 
-                nameAddresses.put(i + 1 + ". " + sandwichName + " x" + numberSandwiches, sandwichToppings);
+                nameAddresses.put(i + 1 + ". " + sandwichName + " x" + numberSandwiches, sandwichToppings + "\n" + comment);
             }
 
             if (item.getItemType().equals("Drink"))
@@ -226,7 +229,7 @@ public class Activity_Server extends AppCompatActivity {
 
         TextView textView = lstHeaderView.findViewById(R.id.textview1);
         try {
-            time = OrderDatabase.getOrdersDAO().getOrderTime(orderNumber);
+            time = MenuDatabase.getOrdersDAO().getOrderTime(orderNumber);
         }catch (Exception e)
         {
             time = "No time recorded";
@@ -254,9 +257,9 @@ public class Activity_Server extends AppCompatActivity {
             newlstView.setId(Global_OrderLinkedList.getOrderLinkedList().get(i).getId());
 
             addHeader(newlstView, Global_OrderLinkedList.getOrderLinkedList().get(i).getId());
-            newlstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            newlstView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                     for (int x = 0; x < Global_OrderLinkedList.getOrderLinkedList().size(); x++)
                     {
                         Integer OrderID = Global_OrderLinkedList.getOrderLinkedList().get(x).getId();
@@ -266,6 +269,14 @@ public class Activity_Server extends AppCompatActivity {
                         }
                     }
                     linearLayout.removeView(newlstView);
+                    return false;
+                }
+            });
+
+            newlstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 }
             });
         }

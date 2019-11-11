@@ -1,5 +1,6 @@
 package com.example.Kiosk;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
@@ -9,11 +10,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,10 +42,11 @@ public class Activity_BluetoothConnect extends AppCompatActivity {
 
     private CallbackReference readerSettingsCallbackRef;
 
-    FloatingActionButton fabMenu, fabPrices, fabConnect, fabAdd;
+    FloatingActionButton fabMenu, fabPrices, fabConnect, fabAdd, fabRemove;
 
     Boolean isFABOpen = false;
 
+    public static final int GALLERY_REQUEST_CODE = 2;
     int ACTION_REQUEST_ENABLE = 1;
     ListView lstBluetooth;
     ArrayAdapter<String> arrayAdapter;
@@ -74,6 +77,7 @@ public class Activity_BluetoothConnect extends AppCompatActivity {
         fabPrices = findViewById(R.id.fabChangePrices);
         fabConnect = findViewById(R.id.fabConnectReader);
         fabAdd = findViewById(R.id.fabAddItem);
+        fabRemove = findViewById(R.id.fabRemoveItem);
 
         fabMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,9 +119,6 @@ public class Activity_BluetoothConnect extends AppCompatActivity {
         readerSettingsCallbackRef = readerManager.addReaderSettingsActivityCallback(
                 this::onReaderSettingsResult
         );
-
-
-
     }
 
     private void onReaderSettingsResult(
@@ -166,10 +167,16 @@ public class Activity_BluetoothConnect extends AppCompatActivity {
         {
             if (resultCode == RESULT_OK)
             {
-                Toast.makeText(this, "Bluetooth is now enabled", Toast.LENGTH_SHORT).show();
-                findPairedDevices();
+                Uri selectedImage = data.getData();
+                Dialog_Add_Item dialog = new Dialog_Add_Item();
+                dialog.showDialog(this, selectedImage);
             }
         }
+        if (requestCode == Activity.RESULT_OK)
+            switch (requestCode){
+                case GALLERY_REQUEST_CODE:
+            }
+
     }
 
     Handler handler = new Handler(new Handler.Callback() {
@@ -405,11 +412,24 @@ public class Activity_BluetoothConnect extends AppCompatActivity {
         dialog.showDialog(this);
     }
 
+    public void AddItem(View v)
+    {
+        Dialog_Add_Item dialog = new Dialog_Add_Item();
+        dialog.showDialog(this, null);
+    }
+
+    public void RemoveItem (View v)
+    {
+        Dialog_Remove_Item dialog = new Dialog_Remove_Item();
+        dialog.showDialog(this);
+    }
+
     private void showFABMenu(){
         isFABOpen=true;
         fabPrices.animate().translationY(-getResources().getDimension(R.dimen.FAB1));
         fabAdd.animate().translationY(-getResources().getDimension(R.dimen.FAB2));
         fabConnect.animate().translationY(-getResources().getDimension(R.dimen.FAB3));
+        fabRemove.animate().translationY(-getResources().getDimension(R.dimen.FAB4));
 
     }
 
@@ -419,6 +439,7 @@ public class Activity_BluetoothConnect extends AppCompatActivity {
         fabPrices.animate().translationY(0);
         fabAdd.animate().translationY(0);
         fabConnect.animate().translationY(0);
+        fabRemove.animate().translationY(0);
 
         fabMenu.bringToFront();
     }

@@ -1,15 +1,29 @@
 package com.example.Kiosk;
 
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+
+import com.example.Kiosk.DatabaseClasses.OrderRoomDatabase;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
+import androidx.room.Room;
+
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Space;
 import android.widget.TextView;
 
 public class Tabs_Fragment_Sandwich extends Fragment {
@@ -26,12 +40,21 @@ public class Tabs_Fragment_Sandwich extends Fragment {
 
     FloatingActionButton btnTraditional, btnGrilledChicken, btnTofu, btnGrilledPork, btnPorkBelly;
 
+    LinearLayout mainLinearLayout;
+
+    OrderRoomDatabase MenuDatabase;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        MenuDatabase = Room.databaseBuilder(getActivity(), OrderRoomDatabase.class, "MenuDatabase").allowMainThreadQueries().build();
+
         view = inflater.inflate(R.layout.tab_fragment_sandwiches, container, false);
+
+        mainLinearLayout = view.findViewById(R.id.mainLinearLayout);
+
 
         lstOrder = getActivity().findViewById(R.id.listvieworder);
         btnCheckOut = getActivity().findViewById(R.id.btnCheckOut);
@@ -48,15 +71,17 @@ public class Tabs_Fragment_Sandwich extends Fragment {
         txtPorkBelly = view.findViewById(R.id.txtPorkBelly);
         txtPorkBelly.setText("Pork Belly: $" + Prices_Sandwiches.PorkBelly);
 
+        Function_Create_Item.Create(getActivity(), "Sandwich", mainLinearLayout, lstOrder, txtinfo, btnCheckOut);
+
         imgTraditional = view.findViewById(R.id.imgTraditional);
         imgTraditional.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Item sandwich = new Item("Traditional", Toppings_Sandwich.Traditional, 0);
+                Item sandwich = new Item("Traditional", Toppings_Sandwich.Traditional, 0, 5);
 
-                Initial_Dialog_Sandwich dialog = new Initial_Dialog_Sandwich();
-                dialog.showDialog(getActivity(), sandwich, lstOrder);
+                Customize_Dialog_Sandwich dialog = new Customize_Dialog_Sandwich();
+                dialog.showInitialDialog(getActivity(), sandwich, lstOrder, btnCheckOut);
             }
         });
         btnTraditional = view.findViewById(R.id.btnTraditional);
@@ -72,10 +97,10 @@ public class Tabs_Fragment_Sandwich extends Fragment {
         imgGrilledChicken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Item sandwich = new Item("Grilled Chicken", Toppings_Sandwich.Traditional, 0);
+                Item sandwich = new Item("Grilled Chicken", Toppings_Sandwich.GrilledChicken, 0, 5);
 
-                Initial_Dialog_Sandwich dialog = new Initial_Dialog_Sandwich();
-                dialog.showDialog(getActivity(), sandwich, lstOrder);
+                Customize_Dialog_Sandwich dialog = new Customize_Dialog_Sandwich();
+                dialog.showInitialDialog(getActivity(), sandwich, lstOrder, btnCheckOut);
             }
         });
         btnGrilledChicken = view.findViewById(R.id.btnChicken);
@@ -91,10 +116,10 @@ public class Tabs_Fragment_Sandwich extends Fragment {
         imgTofu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Item sandwich = new Item("Tofu", Toppings_Sandwich.Traditional, 0);
+                Item sandwich = new Item("Tofu", Toppings_Sandwich.Tofu, 0, 5);
 
-                Initial_Dialog_Tofu dialog = new Initial_Dialog_Tofu();
-                dialog.showDialog(getActivity(), sandwich, lstOrder);
+                Customize_Dialog_Sandwich dialog = new Customize_Dialog_Sandwich();
+                dialog.showInitialDialog(getActivity(), sandwich, lstOrder, btnCheckOut);
             }
         });
         btnTofu = view.findViewById(R.id.btnTofu);
@@ -110,10 +135,10 @@ public class Tabs_Fragment_Sandwich extends Fragment {
         imgGrilledPork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Item sandwich = new Item("Grilled Pork", Toppings_Sandwich.Traditional, 0);
+                Item sandwich = new Item("Grilled Pork", Toppings_Sandwich.GrilledPork, 0, 6);
 
-                Initial_Dialog_Sandwich dialog = new Initial_Dialog_Sandwich();
-                dialog.showDialog(getActivity(), sandwich, lstOrder);
+                Customize_Dialog_Sandwich dialog = new Customize_Dialog_Sandwich();
+                dialog.showInitialDialog(getActivity(), sandwich, lstOrder, btnCheckOut);
             }
         });
         btnGrilledPork = view.findViewById(R.id.btnGrilledPork);
@@ -129,10 +154,10 @@ public class Tabs_Fragment_Sandwich extends Fragment {
         imgPorkBelly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Item sandwich = new Item("Pork Belly", Toppings_Sandwich.PorkBelly, 0);
+                Item sandwich = new Item("Pork Belly", Toppings_Sandwich.PorkBelly, 0, 7);
 
-                Initial_Dialog_Sandwich dialog = new Initial_Dialog_Sandwich();
-                dialog.showDialog(getActivity(), sandwich, lstOrder);
+                Customize_Dialog_Sandwich dialog = new Customize_Dialog_Sandwich();
+                dialog.showInitialDialog(getActivity(), sandwich, lstOrder, btnCheckOut);
             }
         });
         btnPorkBelly = view.findViewById(R.id.btnPorkBelly);

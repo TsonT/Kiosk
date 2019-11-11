@@ -1,18 +1,23 @@
 package com.example.Kiosk;
 
+import android.util.Log;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Item {
 
     private String itemName;
     private ArrayList<String> lsttoppings;
+    private ArrayList<String> antilsttoppings = new ArrayList<>();
     private Integer numberItems;
     private Integer itemPrice;
     private String smoothieFlavor;
     private Integer totalPrice;
     private String itemType;
+    private String comment = "";
 
-    public Item(String ItemName, ArrayList<String> lstToppings, Integer NumberItems)
+    public Item(String ItemName, ArrayList<String> lstToppings, Integer NumberItems, Integer price)
     {
         itemName = ItemName;
         lsttoppings = lstToppings;
@@ -43,6 +48,12 @@ public class Item {
         {
             itemPrice = Prices_Sandwiches.PorkBelly;
         }
+        else
+        {
+            itemPrice = price;
+        }
+
+       updateAntiLst();
     }
 
     public Item(String ItemName, String SmoothieFlavor, Integer NumberItems)
@@ -79,7 +90,7 @@ public class Item {
 
         if(itemName.equals("Sesame Ball"))
         {
-            itemPrice = Prices_Dessert.SesameBall;
+           itemPrice = Prices_Dessert.SesameBall;
         }
         if (itemName.equals("Che"))
         {
@@ -101,8 +112,33 @@ public class Item {
         return lsttoppings;
     }
 
+    public ArrayList<String> getAntiLstToppings()
+    {
+        return antilsttoppings;
+    }
+
+    public String getAntiToppingsAsString()
+    {
+        String strToppings = "";
+
+        for (int i = 0; i < antilsttoppings.size(); i++)
+        {
+            strToppings = strToppings + antilsttoppings.get(i);
+        }
+
+        if (strToppings.contains(", "))
+        {
+            strToppings = strToppings.substring(0, strToppings.length()-2);
+        }
+
+        strToppings = strToppings.trim();
+
+        return  strToppings;
+    }
+
     public void setLstToppings(ArrayList<String> lsttoppings) {
         this.lsttoppings = lsttoppings;
+        updateAntiLst();
     }
 
     public String getToppingsAsString()
@@ -133,7 +169,17 @@ public class Item {
 
     public Integer getTotalPrice()
     {
-        totalPrice = numberItems * itemPrice;
+        if (itemName.equals("Sesame Ball"))
+        {
+            Integer price2for3 = numberItems / 2;
+            Integer leftOver = numberItems % 2;
+            totalPrice = price2for3 * 3 + leftOver * 2;
+
+            Log.e("Price", itemPrice.toString());
+        }
+        else {
+            totalPrice = numberItems * itemPrice;
+        }
 
         return  totalPrice;
     }
@@ -158,4 +204,47 @@ public class Item {
         this.smoothieFlavor = SmoothieFlavor;
     }
 
+    public void updateAntiLst()
+    {
+        antilsttoppings.clear();
+
+        if (!lsttoppings.contains("Carrots"))
+        {
+            antilsttoppings.add("NO Carrots" + "\n");
+        }
+        if (!lsttoppings.contains("Cilantro"))
+        {
+            antilsttoppings.add("NO Cilantro" + "\n");
+        }
+        if (!lsttoppings.contains("Cucumbers"))
+        {
+            antilsttoppings.add("NO Cucumbers" + "\n");
+        }
+        if (!lsttoppings.contains("Jalapenos"))
+        {
+            antilsttoppings.add("NO Jalapenos" + "\n");
+        }
+        if (itemName.equals("Traditional")) {
+            if (!lsttoppings.contains("Pate")) {
+                antilsttoppings.add("NO Pate" + "\n");
+            }
+        }
+        if (!lsttoppings.contains("Mayo"))
+        {
+            antilsttoppings.add("NO Mayo" + "\n");
+        }
+        if (lsttoppings.contains("Vegetables On The Side"))
+        {
+            antilsttoppings.clear();
+            antilsttoppings.add("Vegetables On The Side");
+        }
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 }

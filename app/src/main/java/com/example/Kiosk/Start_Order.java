@@ -3,7 +3,7 @@ package com.example.Kiosk;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Start_Order extends AppCompatActivity {
     public static final long DISCONNECT_TIMEOUT = 30000;

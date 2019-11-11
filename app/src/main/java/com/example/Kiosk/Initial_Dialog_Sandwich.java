@@ -15,7 +15,7 @@ public class Initial_Dialog_Sandwich {
     Button btnConfirm, btnCheckOut;
     Order order;
 
-    public void showDialog(Activity activity, Item drink, ListView lstOrder){
+    public void showDialog(Activity activity, Item sandwich, ListView lstOrder){
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
@@ -44,8 +44,8 @@ public class Initial_Dialog_Sandwich {
             public void onDismiss(DialogInterface dialog) {
                 if(numberPicker.getValue() != 0)
                 {
-                    drink.setNumberItems(numberPicker.getValue());
-                    order.addItem(drink);
+                    sandwich.setNumberItems(numberPicker.getValue());
+                    order.addItem(sandwich);
                     Function_WriteOrder.writeOrder(activity, lstOrder, btnCheckOut);
                 }
             }

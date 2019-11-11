@@ -7,28 +7,32 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".ReaderSDK"
         android:allowBackup="true"
         android:icon="@mipmap/banhmihalongicon"
         android:label="BMHL Kiosk"
+        android:persistent="false"
         android:roundIcon="@mipmap/banhmihalongicon"
         android:supportsRtl="true"
-        android:persistent="false"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
         tools:replace="android:label">
-        <activity android:name=".Activity_See_All_Orders">  </activity>
+        <activity android:name=".Activity_Order_Number"></activity>
+        <activity android:name=".Activity_See_All_Orders"></activity>
         <activity android:name=".Activity_Start_Order" />
-        <activity android:name=".Activity_Authentication"></activity>
+        <activity android:name=".Activity_Authentication" />
         <activity android:name=".Activity_Payment_Options" />
-        <activity android:name=".Activity_Client" ></activity>
-        <activity  android:name=".Activity_Server" />
-        <activity android:name=".Activity_BluetoothConnect"> <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".Activity_Client" >  </activity>
+        <activity android:name=".Activity_Server" />
+        <activity android:name=".Activity_BluetoothConnect">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter> </activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

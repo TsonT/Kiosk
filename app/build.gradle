@@ -5,10 +5,12 @@ android {
     packagingOptions {
         exclude 'META-INF/android.arch.persistence_db-framework.version'
         exclude 'META-INF/android.arch.persistence_db.version'
+        exclude 'META-INF/androidx.sqlite_sqlite-framework.version'
+        exclude 'META-INF/androidx.sqlite_sqlite.version'
     }
 
     compileSdkVersion 28
-    buildToolsVersion "27.0.3"
+    buildToolsVersion "28.0.3"
     defaultConfig {
         applicationId "com.example.readersdk"
         minSdkVersion 23
@@ -16,6 +18,7 @@ android {
         multiDexEnabled true
         versionCode 1020
         versionName "1.3"
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -27,6 +30,7 @@ android {
         jumboMode = true
         keepRuntimeAnnotatedClasses false
     }
+
 }
 
 configurations.all {
@@ -58,25 +62,26 @@ repositories {
 }
 
 dependencies {
-    def readerSdkVersion = "1.3.0"
+
+    def readerSdkVersion = "1.3.3"
     // SQUARE_READER_SDK_APPLICATION_ID is defined in ./gradle.properties
-    implementation 'com.squareup.sdk.reader:reader-sdk-sq0idp-YrxWKirXsl6HVy7c4r4k7A:+'
-    runtimeOnly 'com.squareup.sdk.reader:reader-sdk-internals:+'
+    implementation "com.squareup.sdk.reader:reader-sdk-$SQUARE_READER_SDK_APPLICATION_ID:$readerSdkVersion"
+    runtimeOnly "com.squareup.sdk.reader:reader-sdk-internals:$readerSdkVersion"
 
     implementation 'com.github.bhargavms:DotLoader:1.1.1'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:2.0.0-beta2'
-    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.13-beta-3'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'android.arch.persistence.room:runtime:1.1.1'
-    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.room:room-runtime:2.2.1'
+    annotationProcessor 'androidx.room:room-compiler:2.2.1'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.android.volley:volley:1.1.0'
 
     implementation 'com.getbase:floatingactionbutton:1.10.1'

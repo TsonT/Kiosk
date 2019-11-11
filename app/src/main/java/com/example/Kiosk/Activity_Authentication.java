@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -61,6 +61,8 @@ public class Activity_Authentication extends AppCompatActivity {
     String body;
     String url;
 
+    String orderNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +75,7 @@ public class Activity_Authentication extends AppCompatActivity {
         CheckoutManager checkoutManager = ReaderSdk.checkoutManager();
         checkoutCallbackRef = checkoutManager.addCheckoutActivityCallback(this::onCheckoutResult);
 
-        total = Global_Order.globalOrder.getTotalPrice();
+        total = Global_Order.globalOrder.getTotalPrice()*100;
 
         url = "https://connect.squareup.com/mobile/authorization-code";
         JSONObject jsonBody = new JSONObject();
@@ -105,9 +107,9 @@ public class Activity_Authentication extends AppCompatActivity {
                         ReaderSdk.authorizationManager().authorize(authorizationCode);
 
                         CheckoutManager checkoutManager = ReaderSdk.checkoutManager();
-                        Money amountMoney = new Money(0, CurrencyCode.current());
+                        Money amountMoney = new Money(total, CurrencyCode.current());
                         CheckoutParameters.Builder parametersBuilder = CheckoutParameters.newBuilder(amountMoney);
-                        parametersBuilder.additionalPaymentTypes(AdditionalPaymentType.CASH);
+                        //parametersBuilder.additionalPaymentTypes(AdditionalPaymentType.CASH);
                         checkoutManager.startCheckoutActivity(Activity_Authentication.this, parametersBuilder.build());
 
                     } catch (Exception e) {
@@ -119,7 +121,7 @@ public class Activity_Authentication extends AppCompatActivity {
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("Authorization", AUTH_CODE);
-                    hashMap.put("Content-Type", "application/json");
+                    //hashMap.put("Content-Type", "application/json");
                     return hashMap;
                 }
 
@@ -128,7 +130,7 @@ public class Activity_Authentication extends AppCompatActivity {
                     try {
                         return body.getBytes("utf-8");
                     } catch (Exception e) {
-                        //
+                        Log.e("Error Getting Body:", "Could not return body");
                     }
                     return null;
                 }
@@ -241,9 +243,6 @@ public class Activity_Authentication extends AppCompatActivity {
         order = null;
 
         Global_Order.createNewOrder();
-
-        Intent intent = new Intent(Activity_Authentication.this, Activity_Client.class);
-        startActivity(intent);
     }
 
     Handler handler = new Handler(new Handler.Callback() {
@@ -254,7 +253,11 @@ public class Activity_Authentication extends AppCompatActivity {
                 case STATE_MESSAGE_RECEIVED:
 
                     byte[] readBuff = (byte[]) msg.obj;
-                    String strOrderNumber = new String(readBuff,0,msg.arg1);
+                    orderNumber = new String(readBuff,0,msg.arg1);
+
+                    Intent intent = new Intent(Activity_Authentication.this, Activity_Order_Number.class);
+                    intent.putExtra("orderNumber", orderNumber);
+                    startActivity(intent);
             }
             return true;
         }
