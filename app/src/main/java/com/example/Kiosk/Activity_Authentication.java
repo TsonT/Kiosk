@@ -52,7 +52,7 @@ public class Activity_Authentication extends AppCompatActivity {
     Order order;
 
     private String authorizationCode;
-    private static final String AUTH_CODE = "Bearer EAAAEGHn5cQ4TtflqKTUXdTC0I7vV01Hu2mAHojoGF5q1i6XQyL3bM1dolFO9cnZ";
+    private static final String AUTH_CODE = "Bearer <AUTHID>";
     private CallbackReference checkoutCallbackRef;
 
     int total;
